@@ -2,6 +2,9 @@
 
 $APP_HOME/bin/start
 
-sleep 2
+while [ ! -f $APP_HOME/data/log/karaf.log ]
+do
+  sleep 2
+done
 
 tail -f $APP_HOME/data/log/karaf.log

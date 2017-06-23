@@ -1,19 +1,21 @@
+FROM alpine
+ENV APACHE_ARCHIVED_RELEASE=true
+ENV KARAF_VERSION=4.0.7
+ENV ARCHIVE_NAME=apache-karaf-${KARAF_VERSION}.tar.gz
+RUN apk add --no-cache curl tar gzip
+COPY scripts/* /scripts/
+RUN chmod 755 /scripts/*.sh
+RUN sh -c /scripts/downloadKaraf.sh
+RUN sh -c /scripts/unpackKaraf.sh
+
+
 FROM anapsix/alpine-java:jdk
 MAINTAINER oconnormi
 
-ENV KARAF_VERSION=4.0.6
+ENV KARAF_VERSION=4.0.7
 ENV APP_HOME="/opt/karaf"
 
-RUN apk add --no-cache wget tar
-
-RUN wget http://www-us.apache.org/dist/karaf/${KARAF_VERSION}/apache-karaf-${KARAF_VERSION}.tar.gz && \
-    mkdir /opt/karaf && \
-    tar --strip-components=1 -C /opt/karaf -xzf apache-karaf-${KARAF_VERSION}.tar.gz && \
-    rm apache-karaf-${KARAF_VERSION}.tar.gz && \
-    mkdir -p /app && \
-    ln -s ${APP_HOME}/deploy /app/ && \
-    ln -s ${APP_HOME}/data /app/ && \
-    ln -s ${APP_HOME}/etc /app/
+COPY --from=0 /opt/karaf /opt/karaf
 
 VOLUME /app/data /app/deploy /app/etc
 
