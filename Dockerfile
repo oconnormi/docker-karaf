@@ -1,6 +1,6 @@
 FROM alpine
 ENV APACHE_ARCHIVED_RELEASE=true
-ENV KARAF_VERSION=4.0.7
+ENV KARAF_VERSION=4.1.1
 ENV ARCHIVE_NAME=apache-karaf-${KARAF_VERSION}.tar.gz
 RUN apk add --no-cache curl tar gzip
 COPY scripts/* /scripts/
