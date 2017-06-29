@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ -n "$ADD_REPOS" ]; then
+  if [[ $ADD_REPOS == *";"* ]]; then
+  _repoCount=$[$(echo $ADD_REPOS | grep -o ";" | wc -l) + 1]
+  else
+    _repoCount=1
+  fi
+
+  echo "Preparing to add $_repoCount feature repos"
+
+  for (( i=1; i<=$_repoCount; i++ ))
+  do
+    _currentRepo=$(echo $ADD_REPOS | cut -d ";" -f $i)
+    echo "Adding Repository: $_currentRepo"
+    $APP_HOME/bin/client feature:repo-add $_currentRepo -r 12 -d 10
+  done
+fi
+
+if [ -n "$INSTALL_FEATURES" ]; then
+  if [[ $INSTALL_FEATURES == *";"* ]]; then
+  _featureCount=$[$(echo $INSTALL_FEATURES | grep -o ";" | wc -l) + 1]
+  else
+    _featureCount=1
+  fi
+
+  echo "Preparing to install $_featureCount features"
+
+  for (( i=1; i<=$_featureCount; i++ ))
+  do
+    _currentFeature=$(echo $INSTALL_FEATURES | cut -d ";" -f $i)
+    echo "Installing: $_currentFeature"
+    $APP_HOME/bin/client feature:install $_currentFeature -r 12 -d 10
+  done
+fi

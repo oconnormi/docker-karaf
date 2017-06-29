@@ -1,0 +1,22 @@
+version: '3'
+services:
+  karaf1:
+    image: oconnormi/karaf
+    ports:
+      - 8181:8181
+      - 8443:8443
+    volumes:
+      - ./karaf1/deploy:/opt/karaf/deploy
+    environment:
+      ADD_REPOS: cellar
+      INSTALL_FEATURES: cellar
+  karaf2:
+    image: oconnormi/karaf
+    ports:
+      - 8182:8181
+      - 8444:8443
+    volumes:
+      - ./karaf2/deploy:/opt/karaf/deploy
+    environment:
+      ADD_REPOS: cellar
+      INSTALL_FEATURES: cellar

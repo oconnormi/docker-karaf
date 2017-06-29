@@ -7,4 +7,6 @@ do
   sleep 2
 done
 
+$ENTRYPOINT_HOME/post_start
+
 tail -f $APP_HOME/data/log/karaf.log

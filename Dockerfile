@@ -13,14 +13,15 @@ FROM anapsix/alpine-java:jdk
 MAINTAINER oconnormi
 
 ENV KARAF_VERSION=4.0.7
+ENV ENTRYPOINT_HOME=/app/entrypoint
 ENV APP_HOME="/opt/karaf"
 
 COPY --from=0 /opt/karaf /opt/karaf
 
 VOLUME /app/data /app/deploy /app/etc
 
-COPY entrypoint.sh /app/entrypoint.sh
+COPY entrypoint/* /app/entrypoint/
 
 EXPOSE 8101 8443 8181 1099 44444 5701 54327
 
-ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint/run"]
