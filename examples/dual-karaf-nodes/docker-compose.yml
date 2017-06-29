@@ -1,0 +1,12 @@
+version: '3'
+services:
+  karaf1:
+    image: oconnormi/karaf
+    ports:
+      - 8181:8181
+      - 8443:8443
+  karaf2:
+    image: oconnormi/karaf
+    ports:
+      - 8182:8181
+      - 8444:8443
